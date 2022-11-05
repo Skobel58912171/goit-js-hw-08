@@ -1,4 +1,5 @@
 import Player from '@vimeo/player';
+
 const iframe = document.querySelector('iframe');
 // console.log(iframe);
 const player = new Player(iframe);
@@ -12,7 +13,10 @@ player.getVideoTitle().then(function (title) {
 });
 
 player.on('timeupdate', function () {
-  localStorage.setItem('videoplayer-current-time', currenttime);
+  localStorage.setItem(
+    'videoplayer-current-time',
+    JSON.stringify(player.getCurrentTime())
+  );
 });
 
 player
