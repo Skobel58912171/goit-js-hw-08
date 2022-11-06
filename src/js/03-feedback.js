@@ -18,7 +18,7 @@ populateForm();
 function onSubmit(evt) {
   evt.preventDefault();
   evt.currentTarget.reset();
-  const formObject = JSON.parse(localStorage.getItem(STORAGE_KEY)) || user;
+  const formObject = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
   console.log(formObject);
   localStorage.removeItem(STORAGE_KEY);
 }

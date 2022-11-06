@@ -1,4 +1,5 @@
 import Player from '@vimeo/player';
+import throttle from 'lodash.throttle';
 
 const iframe = document.querySelector('iframe');
 // console.log(iframe);
@@ -12,15 +13,19 @@ player.getVideoTitle().then(function (title) {
   console.log('title:', title);
 });
 
-player.on('timeupdate', function () {
-  localStorage.setItem(
-    'videoplayer-current-time',
-    JSON.stringify(player.getCurrentTime())
-  );
-});
+player.on(
+  'timeupdate',
+  throttle(function (evt) {
+    // console.log(evt.seconds);
+    localStorage.setItem(
+      'videoplayer-current-time',
+      JSON.stringify(evt.seconds)
+    );
+  }, 1000)
+);
 
 player
-  .setCurrentTime(30.456)
+  .setCurrentTime(JSON.parse(localStorage.getItem('videoplayer-current-time')))
   .then(function (seconds) {
     // seconds = the actual time that the player seeked to
   })
