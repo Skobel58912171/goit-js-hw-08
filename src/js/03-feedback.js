@@ -9,8 +9,6 @@ const ref = {
 // console.log(ref.inputEmail);
 const STORAGE_KEY = 'feedback-form-state';
 
-const user = {};
-
 ref.form.addEventListener('submit', onSubmit);
 ref.form.addEventListener('input', throttle(onInput, 500));
 populateForm();
@@ -23,9 +21,12 @@ function onSubmit(evt) {
   localStorage.removeItem(STORAGE_KEY);
 }
 function onInput(evt) {
-  (user.email = ref.inputEmail.value),
-    (user.message = ref.textarea.value),
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+  const user = {
+    email: ref.inputEmail.value,
+    message: ref.textarea.value,
+  };
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
 }
 
 function populateForm() {
